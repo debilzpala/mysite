@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -190,6 +191,10 @@
     <h1>I LOVE PIZZA 🍕</h1>
     <p>Neon Hacker • Pizza Powered</p>
     <button class="btn" onclick="enterChaos()">ENTER CHAOS</button>
+    <button class="btn" onclick="window.open('https://www.youtube.com/@bassboosteds6101', '_blank')">
+    KANAŁ YOUTUBE
+  </button>
+  <button class="btn" onclick="copyDiscord()">KOPIUJ DISCORD ID</button>
   </header>
 
   <section>
@@ -332,6 +337,20 @@
       columns = Math.floor(window.innerWidth / fontSize);
       drops = Array(columns).fill(1);
     });
+  function copyDiscord() {
+  const text = "i.love.pizza.bass";
+  const btn = event.target;
+
+  navigator.clipboard.writeText(text).then(() => {
+    btn.innerText = "SKOPIOWANO ✓";
+    btn.style.background = "linear-gradient(45deg, #00ff00, #00f7ff)";
+    
+    setTimeout(() => {
+      btn.innerText = "KOPIUJ DISCORD";
+      btn.style.background = "linear-gradient(45deg, #ff00ff, #00f7ff)";
+    }, 1500);
+  });
+}
   </script>
 </body>
 
