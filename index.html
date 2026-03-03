@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -8,182 +7,54 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: #000;
-    color: white;
-    overflow-x: hidden;
-  }
+  * {margin:0; padding:0; box-sizing:border-box;}
+  body {font-family:'Inter',sans-serif; background:#000; color:white; overflow-x:hidden;}
 
   /* PRELOADER */
-  #preloader {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  .loader-text {
-    font-family: 'Orbitron', monospace;
-    color: #00f7ff;
-    font-size: 22px;
-    margin-bottom: 20px;
-    animation: blink 1s infinite alternate;
-  }
-  @keyframes blink {
-    from {opacity: 0.4;}
-    to {opacity: 1;}
-  }
-  .loader-bar {
-    width: 300px;
-    height: 8px;
-    background: #111;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  .loader-progress {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #ff00ff, #00f7ff);
-    animation: load 3s linear forwards;
-  }
-  @keyframes load {
-    to {width: 100%;}
-  }
+  #preloader {position:fixed; top:0; left:0; width:100%; height:100%; background:#000; display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:9999;}
+  .loader-text {font-family:'Orbitron', monospace; color:#00f7ff; font-size:22px; margin-bottom:20px; animation:blink 1s infinite alternate;}
+  @keyframes blink {from {opacity:0.4;} to {opacity:1;}}
+  .loader-bar {width:300px; height:8px; background:#111; border-radius:20px; overflow:hidden;}
+  .loader-progress {height:100%; width:0%; background:linear-gradient(90deg,#ff00ff,#00f7ff); animation:load 3s linear forwards;}
+  @keyframes load {to {width:100%;}}
 
-  /* FPS (ukryty z animacją wahadłową) */
-  #fps {
-    position: fixed;
-    top: 10px;
-    right: 20px;
-    font-family: 'Orbitron', monospace;
-    color: #00f7ff;
-    font-size: 14px;
-    z-index: 1;
-    opacity: 0;
-    animation: fpsOscillate 2s ease-in-out infinite;
-    user-select: none;
-    pointer-events: none;
-  }
-  @keyframes fpsOscillate {
-    0%, 100% {opacity: 0;}
-    50% {opacity: 1;}
-  }
+  /* FPS */
+  #fps {position:fixed; top:10px; right:20px; font-family:'Orbitron',monospace; color:#00f7ff; font-size:14px; z-index:1; opacity:0; animation:fpsOscillate 2s ease-in-out infinite; user-select:none; pointer-events:none;}
+  @keyframes fpsOscillate {0%,100%{opacity:0;}50%{opacity:1;}}
 
   /* CANVAS */
-  canvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-  }
-  #particles {
-    z-index: -2;
-  }
-  #matrix {
-    z-index: -1;
-    opacity: 0.6;
-  }
+  canvas {position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none;}
+  #particles {z-index:-2;} #matrix {z-index:-1; opacity:0.6;}
 
   /* HEADER */
-  header {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-  }
-  h1 {
-    font-size: 3rem;
-    font-family: 'Orbitron', monospace;
-    color: #00f7ff;
-    text-shadow: 0 0 20px #00f7ff, 0 0 40px #ff00ff;
-  }
-  .btn {
-    margin-top: 30px;
-    padding: 12px 30px;
-    border-radius: 30px;
-    background: linear-gradient(45deg, #ff00ff, #00f7ff);
-    border: none;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    font-family: 'Orbitron', monospace;
-  }
-  .btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px #ff00ff;
-  }
+  header {height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; position:relative; z-index:10;}
+  h1 {font-size:3rem; font-family:'Orbitron', monospace; color:#00f7ff; text-shadow:0 0 20px #00f7ff,0 0 40px #ff00ff;}
+  .btn {margin-top:30px; padding:12px 30px; border-radius:30px; background:linear-gradient(45deg,#ff00ff,#00f7ff); border:none; color:black; font-weight:bold; cursor:pointer; transition:0.3s; font-family:'Orbitron', monospace;}
+  .btn:hover {transform:scale(1.1); box-shadow:0 0 20px #ff00ff;}
 
   /* Sections */
-  section {
-    padding: 120px 10%;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-  }
-  h2 {
-    margin-bottom: 20px;
-    font-family: 'Orbitron', monospace;
-    color: #00f7ff;
-    text-shadow: 0 0 15px #00f7ff;
-  }
+  section {padding:120px 10%; text-align:center; position:relative; z-index:10;}
+  h2 {margin-bottom:20px; font-family:'Orbitron', monospace; color:#00f7ff; text-shadow:0 0 15px #00f7ff;}
 
-  .games {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
-  }
-  .card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    padding: 25px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: 0.3s;
-    font-family: 'Orbitron', monospace;
-  }
-  .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 25px #00f7ff;
-  }
+  /* Moje Gry - neon hover */
+  .games {display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:25px; margin-top:40px; justify-items:center;}
+  .game-card {display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.05); backdrop-filter:blur(8px); padding:20px; border-radius:20px; border:1px solid rgba(255,255,255,0.1); transition:transform 0.3s, box-shadow 0.3s; cursor:pointer; position:relative;}
+  .game-card img {width:80px; height:80px; transition: transform 0.3s, filter 0.3s, box-shadow 0.3s; filter: drop-shadow(0 0 5px #00f7ff);}
+  .game-card:hover img {transform: translateY(-8px) scale(1.2); filter: drop-shadow(0 0 15px #ff00ff) drop-shadow(0 0 20px #00f7ff); animation:pulse 1s infinite alternate;}
+  .game-card span {color:#00f7ff; text-shadow:0 0 8px #00f7ff; transition: color 0.3s, text-shadow 0.3s;}
+  .game-card:hover span {color:#ff00ff; text-shadow:0 0 12px #ff00ff,0 0 20px #00f7ff;}
+  @keyframes pulse {from {transform: translateY(-8px) scale(1.2);} to {transform: translateY(-12px) scale(1.25);}}
 
-  footer {
-    padding: 40px;
-    text-align: center;
-    background: #111;
-    color: #777;
-    position: relative;
-    z-index: 10;
-  }
+  footer {padding:40px; text-align:center; background:#111; color:#777; position:relative; z-index:10;}
 </style>
 </head>
-
 <body>
-  <!-- PRELOADER -->
   <div id="preloader">
     <div class="loader-text">BOOTING SYSTEM...</div>
-    <div class="loader-bar">
-      <div class="loader-progress"></div>
-    </div>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
   </div>
 
   <div id="fps">FPS: 0</div>
-
   <canvas id="particles"></canvas>
   <canvas id="matrix"></canvas>
 
@@ -191,10 +62,8 @@
     <h1>I LOVE PIZZA 🍕</h1>
     <p>Neon Hacker • Pizza Powered</p>
     <button class="btn" onclick="enterChaos()">ENTER CHAOS</button>
-    <button class="btn" onclick="window.open('https://www.youtube.com/@bassboosteds6101', '_blank')">
-    KANAŁ YOUTUBE
-  </button>
-  <button class="btn" onclick="copyDiscord()">KOPIUJ DISCORD ID</button>
+    <button class="btn" onclick="window.open('https://www.youtube.com/@bassboosteds6101', '_blank')">KANAŁ YOUTUBE</button>
+    <button class="btn" onclick="copyDiscord()">KOPIUJ DISCORD ID</button>
   </header>
 
   <section>
@@ -206,10 +75,22 @@
   <section>
     <h2>Moje Gry</h2>
     <div class="games">
-      <div class="card">Minecraft</div>
-      <div class="card">CS2</div>
-      <div class="card">The Long Drive</div>
-      <div class="card">BeamNG.drive</div>
+      <div class="game-card">
+        <img src="minecraft.png" alt="Minecraft">
+        <span>Minecraft</span>
+      </div>
+      <div class="game-card">
+        <img src="cs2.png" alt="CS2">
+        <span>CS2</span>
+      </div>
+      <div class="game-card">
+        <img src="the_long_drive.png" alt="The Long Drive">
+        <span>The Long Drive</span>
+      </div>
+      <div class="game-card">
+        <img src="beamng_drive.png" alt="BeamNG.drive">
+        <span>BeamNG.drive</span>
+      </div>
     </div>
   </section>
 
@@ -221,13 +102,11 @@
   <footer>© 2026 I Love Pizza | Poprostu Strona</footer>
 
   <script>
-    /* DECLARE CANVASES ON TOP */
     const pCanvas = document.getElementById("particles");
     const pCtx = pCanvas.getContext("2d");
     const mCanvas = document.getElementById("matrix");
     const mCtx = mCanvas.getContext("2d");
 
-    /* RESIZE FUNCTION */
     function resize() {
       pCanvas.width = window.innerWidth;
       pCanvas.height = window.innerHeight;
@@ -235,7 +114,6 @@
       mCanvas.height = window.innerHeight;
     }
 
-    /* LETTERS & MATRIX VARS */
     const letters = "アカサタナハマヤラワ0123456789$#{}[]<>/";
     const fontSize = 16;
     let columns = Math.floor(window.innerWidth / fontSize);
@@ -243,120 +121,81 @@
 
     resize();
 
-    /* MATRIX DRAW */
     function drawMatrix() {
       mCtx.fillStyle = "rgba(0, 0, 0, 0.15)";
       mCtx.fillRect(0, 0, mCanvas.width, mCanvas.height);
-
       mCtx.fillStyle = "#00ff41";
       mCtx.font = fontSize + "px monospace";
-
       for (let i = 0; i < drops.length; i++) {
         const text = letters[Math.floor(Math.random() * letters.length)];
         mCtx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > mCanvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
+        if (drops[i] * fontSize > mCanvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i]++;
       }
     }
 
-    /* PARTICLES */
     let particles = [];
     for (let i = 0; i < 100; i++) {
-      particles.push({
-        x: Math.random() * pCanvas.width,
-        y: Math.random() * pCanvas.height,
-        r: Math.random() * 2,
-        dx: Math.random() - 0.5,
-        dy: Math.random() - 0.5,
-      });
+      particles.push({x:Math.random()*pCanvas.width, y:Math.random()*pCanvas.height, r:Math.random()*2, dx:Math.random()-0.5, dy:Math.random()-0.5});
     }
     function drawParticles() {
-      pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
-      pCtx.fillStyle = "#00f7ff";
-      particles.forEach((p) => {
-        pCtx.beginPath();
-        pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        pCtx.fill();
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.x < 0 || p.x > pCanvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > pCanvas.height) p.dy *= -1;
-      });
+      pCtx.clearRect(0,0,pCanvas.width,pCanvas.height);
+      pCtx.fillStyle="#00f7ff";
+      particles.forEach((p)=>{pCtx.beginPath(); pCtx.arc(p.x,p.y,p.r,0,Math.PI*2); pCtx.fill(); p.x+=p.dx; p.y+=p.dy; if(p.x<0||p.x>pCanvas.width)p.dx*=-1; if(p.y<0||p.y>pCanvas.height)p.dy*=-1;});
     }
 
-    /* FPS hidden oscillation */
     let lastTime = performance.now();
     let fpsValue = 300;
     let fpsIncreasing = true;
-    function animate(now) {
-      let fps = Math.round(1000 / (now - lastTime));
-      lastTime = now;
-
-      if (fpsIncreasing) {
-        fpsValue += 1.5;
-        if (fpsValue >= 370) fpsIncreasing = false;
-      } else {
-        fpsValue -= 1.5;
-        if (fpsValue <= 300) fpsIncreasing = true;
-      }
-
-      document.getElementById("fps").innerText = "FPS: " + Math.round(fpsValue);
-
+    function animate(now){
+      let fps = Math.round(1000/(now-lastTime));
+      lastTime=now;
+      if(fpsIncreasing){fpsValue+=1.5;if(fpsValue>=370)fpsIncreasing=false;}
+      else{fpsValue-=1.5;if(fpsValue<=300)fpsIncreasing=true;}
+      document.getElementById("fps").innerText="FPS: "+Math.round(fpsValue);
       drawParticles();
       drawMatrix();
-
       requestAnimationFrame(animate);
     }
     requestAnimationFrame(animate);
 
-    /* PRELOADER */
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        const p = document.getElementById("preloader");
-        p.style.opacity = "0";
-        p.style.transition = "1s";
-        setTimeout(() => (p.style.display = "none"), 1000);
-      }, 3000);
+    window.addEventListener("load",()=>{
+      setTimeout(()=>{
+        const p=document.getElementById("preloader");
+        p.style.opacity="0";
+        p.style.transition="1s";
+        setTimeout(()=>p.style.display="none",1000);
+      },3000);
     });
 
-    /* ENTER CHAOS BUTTON */
-    function enterChaos() {
-      const audio = new Audio("freesound_community-laser-6042 (mp3cut.net).mp3");
+    function enterChaos(){
+      const audio=new Audio("freesound_community-laser-6042 (mp3cut.net).mp3");
       audio.play();
-      document.body.style.filter = "invert(1)";
-      setTimeout(() => (document.body.style.filter = "invert(0)"), 120);
-      window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+      document.body.style.filter="invert(1)";
+      setTimeout(()=>document.body.style.filter="invert(0)",120);
+      window.scrollTo({top:window.innerHeight, behavior:"smooth"});
     }
 
-    /* WINDOW RESIZE */
-    window.addEventListener("resize", () => {
+    window.addEventListener("resize",()=>{
       resize();
-      columns = Math.floor(window.innerWidth / fontSize);
-      drops = Array(columns).fill(1);
+      columns=Math.floor(window.innerWidth/fontSize);
+      drops=Array(columns).fill(1);
     });
-  function copyDiscord() {
-  const text = "i.love.pizza.bass";
-  const btn = event.target;
-  const audio = new Audio("freesound_community-laser-6042 (mp3cut.net).mp3");
-     audio.play();
 
-  navigator.clipboard.writeText(text).then(() => {
-    btn.innerText = "SKOPIOWANO ✓";
-    btn.style.background = "linear-gradient(45deg, #00ff00, #00f7ff)";
-    
-    setTimeout(() => {
-      btn.innerText = "KOPIUJ DISCORD";
-      btn.style.background = "linear-gradient(45deg, #ff00ff, #00f7ff)";
-    }, 1500);
-  });
-}
+    function copyDiscord(){
+      const text="i.love.pizza.bass";
+      const btn=event.target;
+      const audio=new Audio("freesound_community-laser-6042 (mp3cut.net).mp3");
+      audio.play();
+      navigator.clipboard.writeText(text).then(()=>{
+        btn.innerText="SKOPIOWANO ✓";
+        btn.style.background="linear-gradient(45deg,#00ff00,#00f7ff)";
+        setTimeout(()=>{
+          btn.innerText="KOPIUJ DISCORD";
+          btn.style.background="linear-gradient(45deg,#ff00ff,#00f7ff)";
+        },1500);
+      });
+    }
   </script>
 </body>
-
 </html>
-
-
-
