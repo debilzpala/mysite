@@ -340,6 +340,8 @@
   function copyDiscord() {
   const text = "i.love.pizza.bass";
   const btn = event.target;
+  const audio = new Audio("freesound_community-laser-6042 (mp3cut.net).mp3");
+     audio.play();
 
   navigator.clipboard.writeText(text).then(() => {
     btn.innerText = "SKOPIOWANO ✓";
@@ -355,4 +357,5 @@
 </body>
 
 </html>
+
 
